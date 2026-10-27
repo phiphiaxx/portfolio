@@ -1,0 +1,675 @@
+<title>Sophia Su Portfolio</title>
+<meta name="description" content="Sophia Su — creative strategist and director, New York. A personal archive.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@300..600&family=Special+Elite&family=Reenie+Beanie&display=swap">
+<style>
+/* Layout: a personal archive / journal. Lots of paper, a contents column of pasted prints down the middle,
+   one serif family set tight, a pencil layer for margin notes. Single light theme by choice: it's paper. */
+:root{
+  --paper:#FCFBFA; --ink:#1B1A18; --mute:#85837C; --faint:#C9C7BF; --print:#FCFBF8;
+  --tape:rgba(236,228,200,.62); --tape-edge:rgba(160,150,120,.25); --pencil:#4D5660; --todo:#F3E7A6;
+  --f:"Geist","Helvetica Neue",Helvetica,Arial,sans-serif;
+  --f-hand:"Reenie Beanie","Bradley Hand","Comic Sans MS",cursive;
+  --track:-0.025em; --track-big:-0.05em;
+  --gut:clamp(16px,3vw,44px);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+body{background:var(--paper);color:var(--ink);font:400 14px/1.4 var(--f);letter-spacing:var(--track);padding-inline:var(--gut);-webkit-font-smoothing:antialiased;position:relative}
+/* paper grain */
+body::before{content:"";position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.11;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .1  0 0 0 0 .1  0 0 0 0 .08  0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:1px solid var(--ink);outline-offset:4px}
+.s{font-size:12px;line-height:1.35}
+.i{font-style:normal}
+.mute{color:var(--mute)}
+mark.todo{background:var(--todo);color:var(--ink);padding:0 .15em}
+.hand{font-family:var(--f-hand);color:var(--pencil);font-size:24px;line-height:.9;letter-spacing:0}
+
+/* ---------- top line ---------- */
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;display:flex;justify-content:space-between;gap:16px;padding-block:14px;background:linear-gradient(var(--paper) 70%,transparent)}
+.bar nav{display:flex;gap:18px}
+.bar a:hover,.bar a[aria-current="true"]{font-style:normal}
+.bar .clock{display:none}
+@media (min-width:720px){.bar .clock{display:block}}
+
+/* ---------- prints / placeholders ---------- */
+.m{position:relative;width:100%;max-width:100%;overflow:hidden;--t:#bbb;background:color-mix(in srgb,var(--t) 48%,var(--paper))}
+.m img,.m video{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.88) contrast(1.03)}
+.m.ph::after{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 30% 20%,transparent 40%,rgba(0,0,0,.08))}
+.m .lbl{position:absolute;left:8px;bottom:6px;right:8px;font-size:11px;font-style:normal;color:color-mix(in srgb,var(--ink) 55%,transparent);line-height:1.25;z-index:1}
+.print{background:var(--print);padding:6px 6px 18px;box-shadow:0 1px 1px rgba(0,0,0,.06),0 6px 14px -8px rgba(0,0,0,.18)}
+.tape{position:absolute;width:58px;height:17px;background:var(--tape);border-left:1px dashed var(--tape-edge);border-right:1px dashed var(--tape-edge);z-index:3;pointer-events:none}
+
+/* ---------- opening ---------- */
+.open{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);padding-block:clamp(70px,14vw,180px) clamp(50px,9vw,120px)}
+.open p{grid-column:2/7;margin:0;font-size:clamp(20px,2.1vw,28px);line-height:1.15;letter-spacing:var(--track-big);font-weight:400;max-width:24ch;text-wrap:balance}
+.cities{grid-column:9/13;align-self:end;display:flex;flex-direction:column;gap:12px;justify-self:end}
+.city{display:grid;grid-template-columns:30px auto auto;align-items:center;gap:10px 12px}
+.city .face{width:30px;height:30px;overflow:visible}
+.face circle{fill:none;stroke:var(--ink);stroke-width:1}
+.face line{stroke:var(--ink);stroke-linecap:round}
+.face .hh{stroke-width:1.6}.face .mh{stroke-width:1.1}.face .sh{stroke:var(--mute);stroke-width:.7}
+.face .dot{fill:var(--ink);stroke:none}
+.city .nm,.wx .tp{font-family:"Special Elite","Courier New",Courier,monospace;letter-spacing:0;font-size:12.5px}
+.city .nm{display:flex;flex-direction:column;line-height:1.25}
+.city .tm{font-variant-numeric:tabular-nums}
+.wx{display:inline-flex;align-items:center;gap:6px;padding-left:12px;border-left:1px solid var(--faint);font-variant-numeric:tabular-nums;appearance:none;background:none;border-top:0;border-right:0;border-bottom:0;font:inherit;letter-spacing:inherit;color:inherit;cursor:pointer}
+.wx svg{width:18px;height:18px;fill:none;stroke:var(--ink);stroke-width:1.3;stroke-linecap:round;stroke-linejoin:round}
+.wx:hover .tp{text-decoration:underline;text-underline-offset:3px}
+@media (max-width:760px){.open p{grid-column:1/-1}.cities{grid-column:1/-1;justify-self:start}}
+
+/* ---------- contents column ---------- */
+.label{display:flex;justify-content:space-between;gap:16px;padding-block:8px;border-top:1px solid var(--faint)}
+.contents{position:relative;max-width:1100px;margin:0 auto;padding-block:clamp(40px,6vw,80px) clamp(100px,14vw,200px)}
+.row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:clamp(10px,3vw,40px);position:relative}
+.row .t{font-size:clamp(13px,1.15vw,15px);transition:opacity .25s}
+.row .c{text-align:right;font-style:normal;transition:opacity .25s}
+.row{margin-top:6px}.row:first-child{margin-top:0}
+.row .pic{position:relative;width:var(--w);justify-self:center;transition:transform .35s cubic-bezier(.2,.7,.2,1)}
+.row:hover .pic,.row:focus-visible .pic{transform:scale(1.03);z-index:40}
+.contents:has(.row:hover) .row:not(:hover) .t,.contents:has(.row:hover) .row:not(:hover) .c{opacity:.28}
+.contents:has(.row:hover) .row:not(:hover) .pic{filter:grayscale(.5) opacity(.75)}
+.row:hover .t{font-style:normal}
+.row .note{position:absolute;white-space:nowrap;pointer-events:none}
+@media (max-width:560px){.row .t,.row .c{font-size:12px}.row .note{display:none}}
+
+/* ---------- archive index (expandable) ---------- */
+.arch{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);padding-block:clamp(60px,10vw,140px)}
+.arch .head{grid-column:3/-1;display:flex;gap:24px;align-items:baseline;margin-bottom:22px}
+.arch button.lnk{appearance:none;background:none;border:0;padding:0;font:inherit;color:inherit;letter-spacing:inherit;cursor:pointer}
+.arch button.lnk:hover{font-style:normal}
+.grp{grid-column:1/-1;display:grid;grid-template-columns:repeat(12,1fr);gap:0 var(--gut)}
+.grp ol{grid-column:3/-1;list-style:none;margin:0;padding:0}
+.grp li button{appearance:none;background:none;border:0;padding:1px 0;font:inherit;color:inherit;letter-spacing:inherit;cursor:pointer;display:grid;grid-template-columns:4.2em 1fr auto;gap:14px;width:100%;text-align:left}
+.grp li button:hover .n{font-style:normal}
+.grp li .code{color:var(--mute);font-variant-numeric:tabular-nums}
+.grp .reel{grid-column:1/-1;display:flex;gap:10px;overflow-x:auto;padding-block:16px 26px;scrollbar-width:none}
+.grp .reel figure{margin:0;flex:none;width:clamp(240px,30vw,440px);display:flex;flex-direction:column;gap:6px}
+.grp .gh{padding:14px 0 4px}
+.grp:first-child .gh{padding-top:0}
+.grp .reel video{background:#111}
+@media (max-width:760px){.arch .head,.grp ol{grid-column:1/-1}}
+
+/* ---------- off the clock (film strip) ---------- */
+.life{padding-block:clamp(60px,10vw,140px);display:flex;flex-direction:column;gap:18px}
+.life .cap{min-height:3.2em;max-width:28ch;margin-left:clamp(0px,18vw,260px)}
+.reel2{display:flex;align-items:center;gap:8px;overflow-x:auto;padding-block:30px;scrollbar-width:none;justify-content:safe center}
+.reel2 button{appearance:none;border:0;padding:0;background:none;cursor:pointer;flex:none;height:86px;transition:height .45s cubic-bezier(.2,.7,.2,1),transform .45s}
+.reel2 button .m{height:100%;width:auto}
+.reel2 button[aria-pressed="true"]{height:clamp(200px,28vw,300px)}
+.reel2 button:not([aria-pressed="true"]) .lbl{display:none}
+
+/* ---------- about ---------- */
+.about{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);padding-block:clamp(60px,10vw,140px)}
+.about .fig{grid-column:2/5;position:relative;align-self:start}
+.about .body{grid-column:7/12;min-width:0}
+.about .body p{font-size:clamp(16px,1.35vw,18px);line-height:1.45;margin:0 0 .9em;max-width:42ch}
+.cv{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-direction:column;gap:3px}
+.cv li{display:grid;grid-template-columns:1fr auto;gap:12px}
+.cv li span{color:var(--mute)}
+@media (max-width:760px){.about .fig{grid-column:2/10}.about .body{grid-column:1/-1}}
+
+/* ---------- footer ---------- */
+footer{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);padding-block:clamp(60px,10vw,140px) 40px}
+footer .big{grid-column:3/11;font-size:clamp(28px,4.4vw,64px);line-height:1;letter-spacing:var(--track-big);margin:0;word-break:break-word}
+footer .big .addr{font-style:normal}
+footer .side{grid-column:3/-1;display:flex;gap:20px;flex-wrap:wrap;margin-top:22px;align-items:baseline}
+footer .side a:hover,footer .copy:hover{font-style:normal}
+footer .copy{appearance:none;background:none;border:0;border-bottom:1px solid var(--faint);padding:0;font:inherit;letter-spacing:inherit;color:inherit;cursor:pointer}
+@media (max-width:760px){footer .big,footer .side{grid-column:1/-1}}
+
+/* ---------- project page ---------- */
+#project{padding-block:clamp(30px,5vw,60px) 0}
+.p-back{display:inline-block;margin-bottom:clamp(40px,7vw,100px)}
+.p-back:hover{font-style:normal}
+.p-head{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);margin-bottom:clamp(36px,5vw,64px)}
+.p-head .l{grid-column:1/9;min-width:0}
+.p-head h1{font-weight:400;font-size:clamp(38px,6vw,88px);line-height:.95;letter-spacing:var(--track-big);margin:12px 0 20px;text-wrap:balance}
+.p-head .dek{font-style:normal;font-size:clamp(17px,1.6vw,21px);line-height:1.35;max-width:42ch;margin:0;color:var(--mute)}
+.p-head dl{grid-column:9/13;display:grid;grid-template-columns:auto 1fr;gap:5px 16px;margin:0;align-self:end;font-size:13px}
+.p-head dt{color:var(--mute)}
+.p-head dd{margin:0}
+@media (max-width:860px){.p-head .l,.p-head dl{grid-column:1/-1}}
+.blk{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);margin-top:clamp(44px,6vw,88px)}
+.blk .k{grid-column:1/4;font-style:normal;color:var(--mute)}
+.blk .v{grid-column:4/11;min-width:0}
+.blk .v p{font-size:clamp(17px,1.4vw,19px);line-height:1.5;margin:0 0 .9em;max-width:60ch}
+.blk .pull{font-size:clamp(26px,3vw,40px)!important;line-height:1.1!important;letter-spacing:var(--track-big);max-width:24ch!important;margin:0;text-wrap:balance}
+.names{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:2px;font-size:13px}
+.mgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);margin-top:clamp(44px,6vw,88px)}
+.mgrid figure{margin:0;display:flex;flex-direction:column;gap:6px;min-width:0}
+.c-12{grid-column:1/-1}.c-8{grid-column:span 8}.c-6{grid-column:span 6}.c-4{grid-column:span 4}.c-5{grid-column:span 5}.c-7{grid-column:span 7}
+@media (max-width:760px){.blk .k,.blk .v{grid-column:1/-1!important}.mgrid figure{grid-column:1/-1}}
+.tbl-wrap{overflow-x:auto}
+.matrix,.prog{border-collapse:collapse;width:100%;min-width:600px;font-size:14px}
+.matrix th,.matrix td{border-top:1px solid var(--faint);padding:9px 10px 9px 0;text-align:left;vertical-align:top;font-weight:400}
+.matrix thead th,.matrix tbody th{font-style:normal;color:var(--mute)}
+.prog td,.prog th{text-align:left;padding:7px 12px 7px 0;border-top:1px solid var(--faint);font-weight:400}
+.prog th{font-style:normal;color:var(--mute)}
+.p-next{display:flex;justify-content:space-between;gap:16px;align-items:baseline;border-top:1px solid var(--faint);margin-top:clamp(70px,10vw,140px);padding-top:12px;flex-wrap:wrap}
+.p-next b{font-weight:400;font-size:clamp(28px,3.6vw,50px);letter-spacing:var(--track-big)}
+.p-next:hover b{font-style:normal}
+.bar a:hover,.bar a[aria-current="true"],.row:hover .t,.p-back:hover,footer .side a:hover,footer .copy:hover,.arch button.lnk:hover,.grp li button:hover .n{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.p-next:hover b{text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:1px}
+.open p{font-weight:300}
+.p-head h1,.p-next b,footer .big,.blk .pull{font-weight:500}
+.gate{border:0;padding:0;background:var(--paper);color:var(--ink);width:min(420px,calc(100vw - 32px));box-shadow:0 20px 60px -20px rgba(0,0,0,.35)}
+.gate::backdrop{background:rgba(252,251,250,.7);backdrop-filter:blur(3px)}
+.gate form{display:flex;flex-direction:column;gap:10px;padding:26px}
+.gate .gt{margin:0;font-size:22px;font-weight:500;letter-spacing:var(--track-big)}
+.gate p{margin:0}
+.gate input{font:inherit;font-size:16px;letter-spacing:0;padding:8px 0;border:0;border-bottom:1px solid var(--ink);background:transparent;color:var(--ink);border-radius:0}
+.gate input:focus{outline:none;border-bottom-width:2px}
+.gate .gmsg{min-height:1.4em}
+.gate .gmsg a{text-decoration:underline}
+.gbtns{display:flex;gap:16px;flex-wrap:wrap;margin-top:6px}
+.reel2 button{position:relative}
+.reel2 .tag{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;font-size:20px;pointer-events:none}
+.reel2{padding-bottom:44px}
+</style>
+
+<header class="bar s">
+  <a href="#top">Sophia Su</a>
+  <nav aria-label="Main"><a href="#contents">Contents</a><a href="#archive">Archive</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+</header>
+
+<main id="home"></main>
+<main id="project" hidden></main>
+
+<script>
+/* =====================================================================
+   EDIT HERE. Everything on the site is generated from SITE and PROJECTS.
+   - Text wrapped in {{double braces}} shows highlighted as "to fill in".
+   - Media: { src:"media/file.jpg", alt:"...", ratio:"4/5", label:"..." }
+     Leave src empty ("") to show a tinted placeholder with the label.
+     For video use { video:"media/clip.mp4", poster:"media/clip.jpg", ratio:"16/9" }.
+   - Add  note:"..."  to a project to pin a handwritten margin note next to it.
+   - SITE.contents sets the order of the contents column on the home page.
+     Use a project slug, or an object for a non-project entry (archive, field note).
+   - Page numbers and margin notes shuffle a little on every visit, on purpose.
+   ===================================================================== */
+
+const SITE = {
+  email: "sxfsophia@gmail.com",
+  links: [["Instagram","https://www.instagram.com/phiphiaxx/"]], // add more as ["LinkedIn","https://..."]
+  // Résumé is password-gated: see the "résumé gate" note further down.
+  opening: "Being creative makes me happy. So do climbing rocks, good sound design, and cooking.",
+  cities: [ // clocks + live weather under the intro
+    { name:"New York", tz:"America/New_York", lat:40.71, lon:-74.01 },
+    { name:"Shanghai", tz:"Asia/Shanghai", lat:31.23, lon:121.47 }
+  ],
+  contents: [
+    "maann-studio",
+    "maann-program",
+    "loose-end",
+    "darkfin-labs",
+    "brands-to-know",
+    { title:"Sound Arts + Design", cat:"Archive", href:"#archive", media:{src:"media/sound-arts-01.jpg",ratio:"1136/1138",alt:"Generative sound-art visual: arcs, lines and translucent shapes on a dotted dark grid"}, tone:"#9AA7B0" }
+  ],
+  margin: [ // handwritten notes that drift next to random rows
+    
+  ],
+  life: [ // film photography strip under "Off the clock"
+    { src:"media/film/film-01.jpg", ratio:"1172/1600", label:"Film photography" },
+    { src:"media/film/film-02.jpg", ratio:"1171/1600", label:"Film photography" },
+    { src:"media/life/me-01.jpg", ratio:"1200/1600", label:"At the crag", tag:true },
+    { src:"media/film/film-03.jpg", ratio:"1205/1600", label:"Film photography" },
+    { src:"media/film/film-04.jpg", ratio:"1172/1600", label:"Film photography" },
+    { src:"media/film/film-05.jpg", ratio:"1204/1600", label:"Film photography" },
+    { src:"media/film/film-06.jpg", ratio:"1205/1600", label:"Film photography" },
+    { src:"media/film/film-07.jpg", ratio:"1600/1072", label:"Film photography" },
+    { src:"media/film/film-08.jpg", ratio:"1172/1600", label:"Film photography" },
+    { src:"media/film/film-09.jpg", ratio:"1205/1600", label:"Film photography" },
+    { src:"media/life/me-02.jpg", ratio:"900/1600", label:"Subway", tag:true },
+    { src:"media/film/film-10.jpg", ratio:"1172/1600", label:"Film photography" },
+    { src:"media/film/film-11.jpg", ratio:"1204/1600", label:"Film photography" },
+    { src:"media/film/film-12.jpg", ratio:"1600/1205", label:"Film photography" },
+    { src:"media/film/film-13.jpg", ratio:"1205/1600", label:"Film photography" },
+    { src:"media/film/film-14.jpg", ratio:"1205/1600", label:"Film photography" },
+    { src:"media/film/film-15.jpg", ratio:"1600/1172", label:"Film photography" },
+    { src:"media/film/film-16.jpg", ratio:"1600/1172", label:"Film photography" },
+    { src:"media/life/me-04.jpg", ratio:"1200/1600", label:"Beach ride", tag:true },
+    { src:"media/film/film-17.jpg", ratio:"1046/1564", label:"Film photography" },
+    { src:"media/film/film-18.jpg", ratio:"1048/1564", label:"Film photography" },
+    { src:"media/film/film-19.jpg", ratio:"1046/1564", label:"Film photography" },
+    { src:"media/film/film-20.jpg", ratio:"1600/1038", label:"Film photography" },
+    { src:"media/film/film-21.jpg", ratio:"1048/1566", label:"Film photography" },
+    { src:"media/film/film-22.jpg", ratio:"1146/1570", label:"Film photography" },
+    { src:"media/film/film-23.jpg", ratio:"1048/1568", label:"Film photography" },
+    { src:"media/life/me-03.jpg", ratio:"1200/1600", label:"" },
+    { src:"media/film/film-24.jpg", ratio:"1048/1568", label:"Film photography" },
+    { src:"media/film/film-25.jpg", ratio:"1046/1566", label:"Film photography" },
+    { src:"media/film/film-26.jpg", ratio:"1600/1072", label:"Film photography" },
+    { src:"media/film/film-27.jpg", ratio:"1600/1072", label:"Film photography" },
+    { src:"media/film/film-28.jpg", ratio:"1600/1074", label:"Film photography" },
+    { src:"media/film/film-29.jpg", ratio:"1040/1566", label:"Film photography" },
+    { src:"media/film/film-30.jpg", ratio:"1054/1574", label:"Film photography" },
+    { src:"media/life/me-05.jpg", ratio:"1200/1600", label:"Desert climb", tag:true },
+    { src:"media/film/film-31.jpg", ratio:"1054/1572", label:"Film photography" },
+    { src:"media/film/film-32.jpg", ratio:"1600/1072", label:"Film photography" },
+    { src:"media/film/film-33.jpg", ratio:"1040/1570", label:"Film photography" },
+    { src:"media/film/film-34.jpg", ratio:"1600/1075", label:"Film photography" },
+    { src:"media/film/film-35.jpg", ratio:"1060/1572", label:"Film photography" },
+    { src:"media/film/film-36.jpg", ratio:"1048/1560", label:"Film photography" },
+    { src:"media/film/film-37.jpg", ratio:"1600/1075", label:"Film photography" },
+    { src:"media/life/me-06.jpg", ratio:"1600/1200", label:"Cyanotype", tag:true },
+    { src:"media/film/film-38.jpg", ratio:"1174/1560", label:"Film photography" }
+  ],
+  bio: [
+    "I want to create things that people can see, hear, and feel: brand worlds, stories, campaigns, launches, and spaces with good energy."
+  ],
+  aboutMedia: { src:"media/portrait.jpg", ratio:"1061/1600", alt:"Sophia Su hanging off a green swing frame in a park at dusk, shot on film" },
+  cv: [["Darkfin Labs, Creative Strategist","2024–Now"],["Maann Studio, Co-founder & Creative Director","2024–Now"],["Northwestern University, M.A.","2023–2024"],["University of Southern California, B.S.","2019–2023"]],
+  archive: [ // each item: { t:title, y:year, n:note, v:"video file name in media/video (no .mp4)", r:ratio }
+    { code:"S", group:"Sound art", tone:"#9AA7B0", items:[
+      { t:"The Dichotomy of Emotions", y:"2021", n:"Recording & installation", v:"dichotomy-of-emotions" },
+      { t:"Tǎm Tǎm Zyūn", n:"Sound project", v:"tam-tam-zyun" },
+      { t:"In-between the Whole and the Broken", n:"Sound project", v:"in-between" },
+      { t:"Exoticism At Home", y:"2023", n:"GPS sound walk with Echoes" },
+      { t:"Myth of the Dragon", y:"2024", n:"Ambisonic composition", v:"myth-of-the-dragon" },
+      { t:"To Mark", y:"2024", n:"Sound poetry", v:"sonic-poetry" },
+      { t:"The Flow Deck", y:"2024", n:"Arduino + Max/MSP instrument", v:"flow-deck" }
+    ]},
+    { code:"D", group:"Sound design for film, games & theatre", tone:"#B3A08E", items:[
+      { t:"Film, TV & Theatre Reel", n:"Demo reel", v:"film-tv-theatre-reel" },
+      { t:"Video Game Sound Design Reel", n:"Demo reel", v:"game-sound-reel" },
+      { t:"The Great Sea Serpent", n:"Theatre sound design", v:"great-sea-serpent", r:"4/3" },
+      { t:"Sierra", n:"Animation sound redesign", v:"sierra-sound-redesign" },
+      { t:"Detroit: Become Human", n:"Game sound redesign", v:"detroit-become-human" }
+    ]},
+    { code:"P", group:"Performance", tone:"#B59A9A", items:[
+      { t:"Farewell to Me", n:"Performance", v:"farewell-to-me" },
+      { t:"Tea Performance with Haotian Wang", n:"Live performance", v:"tea-performance" }
+    ]}
+  ],
+  tools: "Pro Tools, Logic, Ableton, Reaper, Max/MSP, Wwise, Unreal, Unity, Arduino, QLab, Maya"
+};
+
+const PROJECTS = [
+{
+  slug:"maann-studio", tone:"#C8B8A2", captions:false,
+  title:"Maann Studio", client:"Maann Studio", year:"2024–Now", category:"Brand",
+  role:"Co-founder, Creative Director",
+  dek:"Brand and visual direction for a New York curatorial platform that matches emerging Asian brands with the communities they belong in.",
+  cover:{ src:"media/maann-studio-01.jpg", ratio:"3/4", alt:"Maann identity collage: the hand-drawn mark on torn paper" },
+  hero:{ src:"media/maann-studio-04.jpg", ratio:"2000/1069", alt:"Maann website homepage with campaign photography" },
+  meta:[["Scope","Brand strategy, identity, visual direction, tone of voice"]],
+  blocks:[
+    {type:"text", k:"Context", body:["Independent Asian fashion and lifestyle brands want New York, and New York is curious about them. Maann Studio brings the stories of craftsmanship, sustainability, and slow-paced, intentional fashion and arts from Asia to a new market."]},
+    {type:"list", k:"Team", items:["Sophia Su","Lynn Chai","Cynthia Chen","Shengxuan Yu","Shangyu Su","Aiwen","Chen"]},
+    {type:"media", items:[
+      { src:"media/maann-studio-01.jpg", ratio:"3/4", span:4, alt:"Maann identity collage" },
+      { src:"media/maann-studio-02.jpg", ratio:"3/4", span:4, alt:"Grid of brands Maann carries, from Bareshells to Read Moh In Red" },
+      { src:"media/maann-studio-03.jpg", ratio:"3/4", span:4, alt:"Maann S25 pop-up store display mockup, 332 E 4th St" },
+      { src:"media/maann-studio-05.jpg", ratio:"2000/1093", span:12, alt:"Maann editorial page: conversations with Repsycle, Xixiang and Gaki Fiber" }
+    ]},
+    {type:"text", k:"Outcome", body:["The platform has since grown from retail into a hybrid creative agency, providing brand consulting, creative strategy, placement, events, and production as services."]}
+  ]
+},
+{
+  slug:"maann-program", tone:"#D2B07A", note:"30 days, 11 nights", captions:false,
+  title:"Makers' Playground", client:"Maann Studio", year:"2025", category:"Experiential",
+  role:"Creative direction, programming, production",
+  dek:"A year of pop-ups, workshops, gatherings and collaborations that gave a store-less brand a physical home in New York.",
+  cover:{ src:"media/maann-program-01.jpg", ratio:"1332/2000", alt:"Maann storefront window with hand-cut lettering" },
+  hero:{ src:"media/maann-program-03.jpg", ratio:"3/2", alt:"Inside the Maann pop-up: jewelry table, ceramics and clothing rail under a knotted paper lamp" },
+  meta:[["Scope","Concepts, partner matching, run of show, spatial and print direction"],["Format","11 workshops, gatherings, performances, and collaborations"]],
+  blocks:[
+    {type:"text", k:"Idea", body:["Community building in NYC that focuses on crafts and art gatherings."]},
+    {type:"media", items:[
+      { src:"media/maann-program-06.jpg", ratio:"2000/962", span:12, alt:"Spatial design moodboard: fixtures, displays and materials" }
+    ]},
+    {type:"media", items:[
+      { src:"media/maann-program-01.jpg", ratio:"1332/2000", span:5, alt:"Maann storefront window by day" },
+      { src:"media/maann-program-02.jpg", ratio:"1636/2000", span:7, alt:"Opening night crowd outside the Maann pop-up" },
+      { src:"media/maann-program-04.jpg", ratio:"3/2", span:6, alt:"Clothing rails on canvas straps with photos pinned above" },
+      { src:"media/maann-program-05.jpg", ratio:"3/2", span:6, alt:"Live sound performance with guests seated on the floor" },
+      { src:"media/maann-program-07.jpg", ratio:"2/3", span:4, alt:"Beaded jewelry workshop" },
+      { src:"media/maann-program-08.jpg", ratio:"3/4", span:4, alt:"Kintsugi pottery repair workshop, table detail" },
+      { src:"media/maann-program-09.jpg", ratio:"3/4", span:4, alt:"Kintsugi workshop participants at work" }
+    ]},
+    {type:"text", k:"Outcome", body:["New friends, good vibes, long RSVP lists, and sell-through."]}
+  ]
+},
+{
+  slug:"loose-end", tone:"#8FAFCB", note:"real riders only", captions:false, hero:false,
+  title:"Loose End in Chinatown, New York", client:"Loose End × Maann Studio", year:"2026", category:"Campaign",
+  role:"Creative direction, casting, production",
+  dek:"A photo campaign that introduced a Shanghai cycling apparel brand to New York by putting it on the city's roads with the people who ride them.",
+  cover:{ src:"media/loose-end-01.jpg", ratio:"1206/1487", alt:"Rider in the Loose End lime jacket outside Wing Fat Company, Chinatown" },
+  meta:[["Scope","Concept, casting, locations, styling, production"]],
+  blocks:[
+    {type:"text", k:"Context", body:["Loose End designs cycling gear and apparel in Shanghai. We brought it to New York, where riding culture is tight-knit and allergic to anything that looks like marketing."]},
+    {type:"pull", k:"Insight", body:"Seen on riders, on New York streets."},
+    {type:"media", items:[
+      { src:"media/loose-end-01.jpg", ratio:"1206/1487", span:6, alt:"Rider in the lime jacket outside Wing Fat Company, Chinatown" },
+      { src:"media/loose-end-07.jpg", ratio:"1206/1484", span:6, alt:"Rider in the burgundy fleece on a snowy Chinatown street" },
+      { src:"media/loose-end-02.jpg", ratio:"1206/1484", span:4, alt:"Back of the lime jacket in motion" },
+      { src:"media/loose-end-03.jpg", ratio:"1206/1481", span:4, alt:"Rider in the lime jacket, side view" },
+      { src:"media/loose-end-04.jpg", ratio:"1206/1481", span:4, alt:"Grid fleece and vest, riding through Chinatown" },
+      { src:"media/loose-end-05.jpg", ratio:"1206/1481", span:6, alt:"Loose End logo on the back of the navy vest, Manhattan Bridge ahead" },
+      { src:"media/loose-end-06.jpg", ratio:"1206/1484", span:6, alt:"Burgundy fleece crewneck, rider crossing at Wing Fat Company" }
+    ]},
+    {type:"text", k:"Execution", body:["Matched the brand with clubs / communities, creative direction including shot list and location scouting."]},
+    {type:"list", k:"Team", items:["Photography: Franco","Talent: Devin Borgwardt"]},
+  ]
+},
+{
+  slug:"darkfin-labs", tone:"#B4B9BE", captions:false,
+  title:"Darkfin Labs", client:"Darkfin Labs (in-house)", year:"", category:"Brand Strategy",
+  role:"Creative Strategist",
+  dek:"The narrative and creative system behind a biotech skincare brand's growth, from paid social to its retail launch.",
+  cover:{ src:"media/darkfin-labs-01.jpg", ratio:"2000/1199", alt:"Silver Longevity Protocol bottle floating against deep blue" },
+  hero:{ src:"media/darkfin-labs-01.jpg", ratio:"2000/1199", alt:"Silver Longevity Protocol bottle floating against deep blue" },
+  meta:[["Scope","Messaging and audience framework, tone of voice, narrative system, and campaign concepts"],["Channels","Digital growth, retail, e-commerce, creators"]],
+  blocks:[
+    {type:"text", k:"Context", body:["A skincare brand launched out of a biotech research lab."]},
+    {type:"media", items:[
+      { src:"media/darkfin-labs-02.jpg", ratio:"3/4", span:4, alt:"L-01 Longevity Protocol red carton with embossed silver mark" },
+      { src:"media/darkfin-labs-03.jpg", ratio:"1342/2000", span:4, alt:"Model holding the silver bottle, cream swatch on her cheek" },
+      { src:"media/darkfin-labs-05.jpg", ratio:"1498/2000", span:4, alt:"Product family: cleanser, lip perfecter and serum with cartons" },
+      { src:"media/darkfin-labs-04.jpg", ratio:"2000/1493", span:12, alt:"Model resting behind a row of eight silver bottles" },
+      { src:"media/darkfin-labs-06.jpg", ratio:"1611/2000", span:6, alt:"Bottle in an open medicine cabinet beside red tile" },
+      { src:"media/darkfin-labs-07.jpg", ratio:"1611/2000", span:6, alt:"Cream swatch over the bottle on frosted glass, burgundy ground" }
+    ]},
+  ]
+},
+{
+  slug:"brands-to-know", tone:"#9FB094", hero:false,
+  title:"Brands to Know", client:"Independent series", year:"", category:"Content",
+  role:"Creator, writer, editor",
+  dek:"A short-form video series that introduces English-speaking audiences to the Asian fashion and outdoor brands worth knowing.",
+  cover:{ src:"media/brands-to-know-01.jpg", ratio:"1186/839", alt:"Brands to Know episodes: Chinese Menswear 72.1K views, Whimsical Chinese Womenswear 12K, Chinese Sportswear 569K" },
+  meta:[["Format","Short-form videos"],["Reach","1.5M"]],
+  blocks:[
+    {type:"text", k:"Context", body:["A curatorial, cultural deep dive into interesting, emerging Asian brands."]},
+    {type:"text", k:"Idea", body:["Short, opinionated episodes, each built around one scene: outdoor, menswear, whimsical womenswear. Every brand gets its origin, what makes it different, and who it's for."]},
+    {type:"media", items:[
+      { src:"media/brands-to-know-01.jpg", ratio:"1186/839", span:12, alt:"Brands to Know episodes: Chinese Menswear 72.1K views, Whimsical Chinese Womenswear 12K, Chinese Sportswear 569K" }
+    ]},
+    {type:"text", k:"Outcome", body:["3-10x gain in following for all the brands mentioned; brand awareness + exposure."]}
+  ]
+}
+];
+</script>
+
+<script>
+/* ===================== rendering (no need to edit below) ===================== */
+const WX={
+  sun:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg>',
+  moon:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19.5 14.6A8 8 0 0 1 9.4 4.5a8 8 0 1 0 10.1 10.1z"/></svg>',
+  partly:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 3.5v1.6M3 9h1.6M4.6 5.1l1.1 1.1M12.4 5.1l-1.1 1.1"/><path d="M5.6 11.4a3.2 3.2 0 0 1 5.9-2.6"/><path d="M7.5 19.5h10a3.5 3.5 0 0 0 .3-7A5 5 0 0 0 8.2 13 3.3 3.3 0 0 0 7.5 19.5z"/></svg>',
+  cloud:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 18.5h10.5a3.8 3.8 0 0 0 .3-7.6A5.5 5.5 0 0 0 7.3 12 3.3 3.3 0 0 0 7 18.5z"/></svg>',
+  fog:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 13.5h10.5a3.5 3.5 0 0 0 .3-7A5.2 5.2 0 0 0 7.4 7.5 3 3 0 0 0 7 13.5z"/><path d="M4 17h16M6.5 20.5h11"/></svg>',
+  rain:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14.5h10.5a3.6 3.6 0 0 0 .3-7.2A5.3 5.3 0 0 0 7.4 8.3 3.1 3.1 0 0 0 7 14.5z"/><path d="M8.5 17.5l-1 2.5M12.5 17.5l-1 2.5M16.5 17.5l-1 2.5"/></svg>',
+  snow:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14.5h10.5a3.6 3.6 0 0 0 .3-7.2A5.3 5.3 0 0 0 7.4 8.3 3.1 3.1 0 0 0 7 14.5z"/><path d="M8.5 18.2v.1M12 19.8v.1M15.5 18.2v.1" stroke-width="2.2"/></svg>',
+  storm:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 14.5h10.5a3.6 3.6 0 0 0 .3-7.2A5.3 5.3 0 0 0 7.4 8.3 3.1 3.1 0 0 0 7 14.5z"/><path d="M12.5 15.5l-2 3.2h3l-2 3.3"/></svg>'
+};
+const $ = (s,el=document)=>el.querySelector(s);
+const esc = s => String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt = s => esc(s).replace(/\{\{(.+?)\}\}/g,'<mark class="todo">$1</mark>');
+const rnd = (a,b)=>a+Math.random()*(b-a);
+const pick = a => a[Math.floor(Math.random()*a.length)];
+
+function media(m,tone,{noLabel=false}={}){
+  const ar = m.ratio||"4/5";
+  const st = `aspect-ratio:${ar};${tone?`--t:${esc(tone)};`:""}`;
+  if(m.video) return `<div class="m" style="${st}"><video src="${esc(m.video)}" ${m.poster?`poster="${esc(m.poster)}"`:""} controls playsinline preload="none"></video></div>`;
+  if(m.src) return `<div class="m" style="${st}"><img src="${esc(m.src)}" alt="${esc(m.alt||m.label||"")}" loading="lazy" decoding="async"></div>`;
+  return `<div class="m ph" style="${st}" role="img" aria-label="Placeholder: ${esc(m.label)}">${noLabel?"":`<span class="lbl">${fmt(m.label)}</span>`}</div>`;
+}
+const tape = () => `<span class="tape" style="top:-8px;left:${rnd(15,55).toFixed(0)}%;transform:rotate(${rnd(-12,12).toFixed(1)}deg)"></span>`;
+
+function entries(){
+  return SITE.contents.map(e=>{
+    if(typeof e==="string"){ const p=PROJECTS.find(x=>x.slug===e); return p&&{title:p.title,cat:p.category,href:"#"+p.slug,media:p.home||p.cover,tone:p.tone,note:p.note} }
+    return e;
+  }).filter(Boolean);
+}
+
+function contents(){
+  const list = entries(); let page = 4;
+  const notes = [...SITE.margin];
+  return list.map((e,i)=>{
+    page += Math.round(rnd(6,22));
+    const ar = e.media.ratio||"4/5"; const [a,b]=ar.split("/").map(Number); const r=b?a/b:1;
+    const w = r>1.2?260:r<0.7?150:190;
+    const asPrint = Math.random()<.45, hasTape = Math.random()<.35;
+    const ov = i? -Math.round(rnd(0,34)) : 0;
+    const note = e.note || (notes.length && Math.random()<.4 ? notes.shift() : null);
+    const side = Math.random()<.5;
+    return `<a class="row" href="${esc(e.href)}">
+      <span class="t">${fmt(e.title)}</span>
+      <span class="pic" style="--w:min(${w}px,38vw)">
+        ${media(e.media,e.tone,{noLabel:true})}
+        ${note?`<span class="note hand" style="${side?"right":"left"}:calc(100% + 14px);top:calc(50% + ${rnd(22,34).toFixed(0)}px)">${esc(note)}</span>`:""}
+      </span>
+      <span class="c s">${fmt(e.cat)}</span>
+    </a>`;
+  }).join("");
+}
+
+function archive(){
+  let html = "";
+  SITE.archive.forEach((g,gi)=>{
+    html += `<div class="grp" data-g="${gi}"><ol><li class="gh mute">${esc(g.group)}</li>${g.items.map((it,ii)=>`<li><button type="button" data-g="${gi}" aria-expanded="false"><span class="code">${g.code}${String(ii+1).padStart(3,"0")}</span><span class="n">${fmt(it.t)}</span><span class="mute">${esc(it.n||"")}${it.y?", "+esc(it.y):""}</span></button></li>`).join("")}</ol>
+      <div class="reel" hidden>${g.items.map(it=>{
+        const m = it.v ? `<div class="m" style="aspect-ratio:${it.r||"16/9"};--t:${g.tone}"><video src="media/video/${esc(it.v)}.mp4" poster="media/video/${esc(it.v)}.jpg" controls playsinline preload="none" aria-label="${esc(it.t)}"></video></div>`
+                       : media({src:"",ratio:it.r||"16/9",label:it.t},g.tone,{noLabel:true});
+        return `<figure>${m}<figcaption class="s">${fmt(it.t)}<br><span class="mute">${esc(it.n||"")}${it.y?", "+esc(it.y):""}</span></figcaption></figure>`;
+      }).join("")}</div></div>`;
+  });
+  return html;
+}
+
+function home(){
+  const s=SITE;
+  return `
+  <section class="open" id="top"><p>${fmt(s.opening)}</p><div class="cities s" aria-label="Local time and weather">${s.cities.map((c,i)=>`<div class="city" data-c="${i}">
+      <svg class="face" viewBox="-15 -15 30 30" aria-hidden="true"><circle r="14"/><line class="hh" x2="0" y2="-7"/><line class="mh" x2="0" y2="-10.5"/><line class="sh" x2="0" y2="-11.5"/><circle class="dot" r="1.2"/></svg>
+      <span class="nm"><span>${esc(c.name)}</span><span class="tm mute">--:--</span></span>
+      <button type="button" class="wx" title="Switch °F / °C" aria-label="${esc(c.name)} weather, loading">${WX.cloud}<span class="tp mute">–°</span></button>
+    </div>`).join("")}</div></section>
+
+  <section id="contents">
+    <div class="label s"><span>Contents</span><span class="mute i">${PROJECTS.length} projects, assorted notes</span></div>
+    <div class="contents">${contents()}</div>
+  </section>
+
+  <section id="archive">
+    <div class="label s"><span>Archive</span><span class="mute i">Sound Arts + Design, 2021–2024</span></div>
+    <div class="arch s">
+      <div class="head"><button type="button" class="lnk" id="expandAll">Expand all ▾</button><span class="mute i">${esc(s.tools)}</span></div>
+      ${archive()}
+    </div>
+  </section>
+
+  <section id="life">
+    <div class="label s"><span>Off the clock</span><span class="mute i">Film photography, and me</span></div>
+    <div class="life">
+      <p class="cap s" id="lifeCap"></p>
+      <div class="reel2" role="group" aria-label="Field notes">${s.life.map((l,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="${esc(l.label.replace(/[{}]/g,""))} ${i+1}">${media({src:l.src||"",ratio:l.ratio,label:l.label},l.tone)}${l.tag?`<span class="tag hand">${esc(l.label)}</span>`:""}</button>`).join("")}</div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="label s"><span>About</span><span class="mute i">New York</span></div>
+    <div class="about">
+      <div class="fig">${media(s.aboutMedia,"#A9A49A")}</div>
+      <div class="body">${s.bio.map(p=>`<p>${fmt(p)}</p>`).join("")}
+        <ul class="cv s">${s.cv.map(([a,b])=>`<li>${fmt(a)}<span>${fmt(b)}</span></li>`).join("")}</ul>
+      </div>
+    </div>
+  </section>
+  ${footer()}`;
+}
+
+function footer(){
+  return `<dialog class="gate" id="gate" aria-labelledby="gateT">
+    <form method="dialog" id="gateForm">
+      <p id="gateT" class="gt">Résumé</p>
+      <p class="s mute">Available on request. If I've sent you a password, enter it below. Otherwise, write to ${esc(SITE.email)} and I'll share it.</p>
+      <label class="s" for="gatePw">Password</label>
+      <input id="gatePw" type="password" autocomplete="off" required>
+      <p class="s gmsg" id="gateMsg" role="status"></p>
+      <div class="gbtns s"><button type="submit" class="copy">Open résumé</button><button type="button" class="copy" id="gateReq">Request access</button><button type="button" class="copy" id="gateClose">Close</button></div>
+    </form>
+  </dialog>
+  <footer id="contact">
+    <p class="big">Write to me:<br><span class="addr">${esc(SITE.email)}</span></p>
+    <div class="side s"><button type="button" class="copy" id="copyBtn">Copy email</button>
+      ${SITE.links.map(([a,u])=>`<a href="${esc(u)}" target="_blank" rel="noopener">${esc(a)} ↗</a>`).join("")}
+      <button type="button" class="copy" data-resume>Résumé (on request)</button>
+      <span class="mute i">Last updated October 2026</span></div>
+  </footer>`;
+}
+
+function block(b,tone,cap=true){
+  const k = `<div class="k s">${esc(b.k||"")}</div>`;
+  if(b.type==="text") return `<div class="blk">${k}<div class="v">${b.body.map(p=>`<p>${fmt(p)}</p>`).join("")}</div></div>`;
+  if(b.type==="list") return `<div class="blk">${k}<div class="v"><ul class="names s">${b.items.map(n=>`<li>${fmt(n)}</li>`).join("")}</ul></div></div>`;
+  if(b.type==="pull") return `<div class="blk">${k}<div class="v"><p class="pull">${fmt(b.body)}</p></div></div>`;
+  if(b.type==="media") return `<div class="mgrid">${b.items.map(m=>`<figure class="c-${m.span||12}">${media(m,tone,{noLabel:!cap})}${cap&&m.caption?`<figcaption class="s mute i">${fmt(m.caption)}</figcaption>`:""}</figure>`).join("")}</div>`;
+  if(b.type==="matrix") return `<div class="blk">${k}<div class="v" style="grid-column:4/-1"><div class="tbl-wrap"><table class="matrix"><thead><tr><th>Audience / stage</th>${b.cols.map(c=>`<th>${esc(c)}</th>`).join("")}</tr></thead><tbody>${b.rows.map(r=>`<tr><th>${esc(r[0])}</th>${r.slice(1).map(c=>`<td>${fmt(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div></div>`;
+  if(b.type==="program") return `<div class="blk">${k}<div class="v" style="grid-column:4/-1"><div class="tbl-wrap"><table class="prog"><thead><tr><th>No.</th><th>Format</th><th>Title</th><th>Partner</th><th>When</th></tr></thead><tbody>${b.rows.map(r=>`<tr>${r.map(c=>`<td>${fmt(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div></div></div>`;
+  return "";
+}
+
+function project(p){
+  const i = PROJECTS.indexOf(p), next = PROJECTS[(i+1)%PROJECTS.length];
+  return `<a class="p-back s" href="#contents">← Contents</a>
+  <div class="p-head">
+    <div class="l"><span class="s mute i">${esc(p.category)}</span><h1>${esc(p.title)}</h1><p class="dek">${fmt(p.dek)}</p></div>
+    <dl><dt>Client</dt><dd>${esc(p.client)}</dd><dt>Role</dt><dd>${fmt(p.role)}</dd>${p.year?`<dt>Year</dt><dd>${fmt(p.year)}</dd>`:""}${p.meta.map(([a,b])=>`<dt>${esc(a)}</dt><dd>${fmt(b)}</dd>`).join("")}</dl>
+  </div>
+  ${p.hero===false?"":media(p.hero||{...p.cover,ratio:"21/9"},p.tone,{noLabel:true})}
+  ${p.blocks.map(b=>block(b,p.tone,p.captions!==false)).join("")}
+  <a class="p-next" href="#${next.slug}"><span class="s mute i">Next</span><b>${esc(next.title)} →</b></a>
+  ${footer()}`;
+}
+
+/* ---------- boot & interaction ---------- */
+const H=$("#home"), P=$("#project");
+H.innerHTML = home();
+
+function setLife(i){
+  document.querySelectorAll(".reel2 button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.i==i));
+  const l=SITE.life[i]; $("#lifeCap").innerHTML=`(${String(+i+1).padStart(2,"0")}) ${fmt(l.label)}`;
+}
+setLife(0);
+
+H.addEventListener("click",e=>{
+  const lb=e.target.closest(".reel2 button"); if(lb){setLife(lb.dataset.i);return}
+  const ab=e.target.closest(".grp li button");
+  if(ab){const g=ab.closest(".grp"),reel=g.querySelector(".reel");reel.hidden=!reel.hidden;g.querySelectorAll("li button").forEach(b=>b.setAttribute("aria-expanded",!reel.hidden));return}
+  if(e.target.id==="expandAll"){
+    const reels=[...document.querySelectorAll(".grp .reel")],open=reels.some(r=>r.hidden);
+    reels.forEach(r=>r.hidden=!open); e.target.textContent=open?"Collapse all ▴":"Expand all ▾"; return}
+});
+H.addEventListener("mouseover",e=>{const lb=e.target.closest(".reel2 button");if(lb)setLife(lb.dataset.i)});
+
+/* ---------- résumé gate ----------
+   The PDF's file name is derived from the password, so the link never appears in this page.
+   To change the password, ask Claude for the new file key, or run in a browser console:
+   crypto.subtle.digest("SHA-256",new TextEncoder().encode("NEWPASSWORD")).then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("").slice(0,16)))
+   then upload the PDF as media/resume-<that key>.pdf */
+async function resumeKey(pw){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(pw));return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join("").slice(0,16)}
+document.addEventListener("click",e=>{
+  const g=document.getElementById("gate"); if(!g) return;
+  if(e.target.closest("[data-resume]")){$("#gateMsg").textContent="";$("#gatePw").value="";g.showModal();return}
+  if(e.target.id==="gateClose"){g.close();return}
+  if(e.target.id==="gateReq"){
+    const subj=encodeURIComponent("Résumé request"), body=encodeURIComponent("Hi Sophia, could you share your résumé? I'm reaching out about ");
+    location.href=`mailto:${SITE.email}?subject=${subj}&body=${body}`;
+    $("#gateMsg").textContent=`If your mail app didn't open, write to ${SITE.email}.`;return}
+});
+document.addEventListener("submit",async e=>{
+  if(e.target.id!=="gateForm")return; e.preventDefault();
+  const msg=$("#gateMsg"), pw=$("#gatePw").value.trim(); if(!pw)return;
+  msg.textContent="Checking…";
+  try{
+    const url=`media/resume-${await resumeKey(pw)}.pdf`;
+    const r=await fetch(url,{method:"HEAD"});
+    if(r.ok){msg.innerHTML=`Unlocked. <a href="${url}" target="_blank" rel="noopener">Open résumé ↗</a>`}
+    else msg.textContent="That password didn't work. Use Request access to ask for one.";
+  }catch(err){msg.textContent="Couldn't check right now. Write to "+SITE.email+" instead."}
+});
+
+document.addEventListener("click",e=>{
+  if(e.target.id!=="copyBtn")return;
+  const b=e.target, fallback=()=>{const a=document.querySelector(".addr");if(a){const r=document.createRange();r.selectNodeContents(a);const s=getSelection();s.removeAllRanges();s.addRange(r)}};
+  if(!navigator.clipboard){fallback();return}
+  navigator.clipboard.writeText(SITE.email).then(()=>{b.textContent="Copied";setTimeout(()=>b.textContent="Copy email",1600)}).catch(fallback);
+});
+
+function route(){
+  const id=location.hash.slice(1), p=PROJECTS.find(x=>x.slug===id);
+  document.querySelectorAll(".bar nav a").forEach(a=>a.setAttribute("aria-current",a.hash==="#"+id));
+  if(p){P.innerHTML=project(p);H.hidden=true;P.hidden=false;document.title=p.title+" — Sophia Su";window.scrollTo(0,0);return}
+  document.title="Sophia Su Portfolio";
+  if(!P.hidden){P.hidden=true;H.hidden=false}
+  const t=id&&document.getElementById(id); if(t) requestAnimationFrame(()=>t.scrollIntoView());
+}
+addEventListener("hashchange",route); route();
+addEventListener("keydown",e=>{if(e.key==="Escape"&&!P.hidden)location.hash="contents"});
+
+/* ---------- clocks ---------- */
+function tick(){
+  const now=new Date();
+  document.querySelectorAll(".city").forEach(el=>{
+    const c=SITE.cities[el.dataset.c];
+    let p={}; try{new Intl.DateTimeFormat("en-US",{timeZone:c.tz,hour:"numeric",minute:"numeric",second:"numeric",hourCycle:"h23"}).formatToParts(now).forEach(x=>p[x.type]=+x.value)}catch(e){return}
+    const h=p.hour%12, m=p.minute, sec=p.second;
+    const set=(cls,deg)=>el.querySelector(cls).setAttribute("transform",`rotate(${deg})`);
+    set(".hh",h*30+m*.5); set(".mh",m*6+sec*.1); set(".sh",sec*6);
+    el.querySelector(".tm").textContent=new Intl.DateTimeFormat("en-US",{timeZone:c.tz,hour:"numeric",minute:"2-digit"}).format(now);
+  });
+}
+tick(); setInterval(tick,1000);
+
+/* ---------- weather (Open-Meteo, free, no key). Refreshes every 15 min. ---------- */
+let wxData=null, wxUnit=(()=>{try{return localStorage.getItem("ss-unit")||"F"}catch(e){return "F"}})();
+function wxKind(code,day){
+  if(code===0||code===1) return day?"sun":"moon";
+  if(code===2) return day?"partly":"cloud";
+  if(code===3) return "cloud";
+  if(code===45||code===48) return "fog";
+  if((code>=71&&code<=77)||code===85||code===86) return "snow";
+  if(code>=95) return "storm";
+  if(code>=51) return "rain";
+  return "cloud";
+}
+const WX_LABEL={sun:"Sunny",moon:"Clear",partly:"Partly cloudy",cloud:"Cloudy",fog:"Foggy",rain:"Rain",snow:"Snow",storm:"Thunderstorm"};
+function paintWx(){
+  if(!wxData) return;
+  document.querySelectorAll(".city").forEach((el,i)=>{
+    const d=wxData[i]; if(!d) return;
+    const k=wxKind(d.code,d.day), t=wxUnit==="F"?d.c*9/5+32:d.c;
+    const b=el.querySelector(".wx");
+    b.innerHTML=`${WX[k]}<span class="tp">${Math.round(t)}°${wxUnit}</span>`;
+    b.setAttribute("aria-label",`${SITE.cities[i].name}: ${WX_LABEL[k]}, ${Math.round(t)} degrees ${wxUnit==="F"?"Fahrenheit":"Celsius"}`);
+    b.title=`${WX_LABEL[k]} · click for °${wxUnit==="F"?"C":"F"}`;
+  });
+}
+async function loadWx(){
+  try{
+    const cs=SITE.cities;
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${cs.map(c=>c.lat).join(",")}&longitude=${cs.map(c=>c.lon).join(",")}&current=temperature_2m,weather_code,is_day`;
+    const r=await fetch(url); if(!r.ok) throw 0;
+    let j=await r.json(); if(!Array.isArray(j)) j=[j];
+    wxData=j.map(x=>({c:x.current.temperature_2m,code:x.current.weather_code,day:!!x.current.is_day}));
+    paintWx();
+  }catch(e){ document.querySelectorAll(".wx .tp").forEach(t=>t.textContent="–°"); }
+}
+document.addEventListener("click",e=>{
+  if(!e.target.closest(".wx")) return;
+  wxUnit=wxUnit==="F"?"C":"F"; try{localStorage.setItem("ss-unit",wxUnit)}catch(err){}
+  paintWx();
+});
+loadWx(); setInterval(loadWx,15*60*1000);
+</script>
