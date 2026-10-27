@@ -1,3 +1,9 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>Sophia Su Portfolio</title>
 <meta name="description" content="Sophia Su — creative strategist and director, New York. A personal archive.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -76,7 +82,27 @@ mark.todo{background:var(--todo);color:var(--ink);padding:0 .15em}
 .contents:has(.row:hover) .row:not(:hover) .pic{filter:grayscale(.5) opacity(.75)}
 .row:hover .t{font-style:normal}
 .row .note{position:absolute;white-space:nowrap;pointer-events:none}
-@media (max-width:560px){.row .t,.row .c{font-size:12px}.row .note{display:none}}
+@media (max-width:640px){
+  .contents{padding-block:24px 80px}
+  .row{grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"pic pic" "t c";gap:10px 12px;margin-top:40px}
+  .row:first-child{margin-top:8px}
+  .row .pic{grid-area:pic;width:min(76vw,360px)}
+  .row .t{grid-area:t;font-size:16px}
+  .row .c{grid-area:c;font-size:13px}
+  .row .pic .note{display:block;left:auto!important;right:10px!important;top:auto!important;bottom:8px;color:#fff;font-size:24px;text-shadow:0 1px 4px rgba(0,0,0,.45);z-index:2}
+  .open{padding-block:56px 40px}
+  .open p{font-size:24px}
+  .bar{font-size:13px}
+  .bar nav{gap:14px}
+  .label{font-size:13px}
+  .about .fig{grid-column:1/-1}
+  .arch .head{flex-wrap:wrap;gap:8px 16px}
+  .grp li button{grid-template-columns:3.4em 1fr;font-size:14px}
+  .grp li button>span:last-child{grid-column:2;margin-top:-2px}
+  .grp .reel figure{width:80vw}
+  .reel2 button{height:110px}
+  .reel2 button[aria-pressed="true"]{height:min(64vw,320px)}
+}
 
 /* ---------- archive index (expandable) ---------- */
 .arch{display:grid;grid-template-columns:repeat(12,1fr);gap:var(--gut);padding-block:clamp(60px,10vw,140px)}
@@ -173,6 +199,8 @@ footer .copy{appearance:none;background:none;border:0;border-bottom:1px solid va
 .reel2{padding-bottom:44px}
 </style>
 
+</head>
+<body>
 <header class="bar s">
   <a href="#top">Sophia Su</a>
   <nav aria-label="Main"><a href="#contents">Contents</a><a href="#archive">Archive</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
@@ -673,3 +701,6 @@ document.addEventListener("click",e=>{
 });
 loadWx(); setInterval(loadWx,15*60*1000);
 </script>
+
+</body>
+</html>
