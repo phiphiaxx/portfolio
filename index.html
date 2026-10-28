@@ -97,9 +97,6 @@ mark.todo{background:var(--todo);color:var(--ink);padding:0 .15em}
   .arch .head{flex-wrap:wrap;gap:8px 16px}
   .grp li button{grid-template-columns:3.4em 1fr;font-size:14px}
   .grp li button>span:last-child{grid-column:2;margin-top:-2px}
-  .grp .reel figure{width:80vw}
-  .reel2 button{height:110px}
-  .reel2 button[aria-pressed="true"]{height:min(64vw,320px)}
 }
 
 /* ---------- archive index (expandable) ---------- */
@@ -124,7 +121,8 @@ mark.todo{background:var(--todo);color:var(--ink);padding:0 .15em}
 .life .cap{min-height:3.2em;max-width:28ch;margin-left:clamp(0px,18vw,260px)}
 .reel2{display:flex;align-items:center;gap:8px;overflow-x:auto;padding-block:30px;scrollbar-width:none;justify-content:safe center}
 .reel2 button{appearance:none;border:0;padding:0;background:none;cursor:pointer;flex:none;height:86px;transition:height .45s cubic-bezier(.2,.7,.2,1),transform .45s}
-.reel2 button .m{height:100%;width:auto}
+.reel2 button .m{height:100%;width:100%;aspect-ratio:auto!important}
+.reel2 button .m img{width:100%;height:100%;object-fit:cover;display:block}
 .reel2 button[aria-pressed="true"]{height:clamp(200px,28vw,300px)}
 .reel2 button:not([aria-pressed="true"]) .lbl{display:none}
 
@@ -199,6 +197,11 @@ footer .copy{appearance:none;background:none;border:0;border-bottom:1px solid va
 .grp .reel:has(figure.on) figure:not(.on):not(:hover){opacity:.55}
 .grp li button[aria-current="true"] .n{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
 .grp .reel{position:relative;scroll-behavior:smooth}
+@media (max-width:640px){
+  .grp .reel figure{width:80vw}
+  .reel2 button{height:110px}
+  .reel2 button[aria-pressed="true"]{height:min(64vw,320px)}
+}
 </style>
 
 </head>
@@ -523,7 +526,7 @@ function home(){
     <div class="label s"><span>Off the clock</span><span class="mute i">Film photography, and me</span></div>
     <div class="life">
       <p class="cap s" id="lifeCap"></p>
-      <div class="reel2" role="group" aria-label="Field notes">${s.life.map((l,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}" aria-label="${esc(l.label.replace(/[{}]/g,""))} ${i+1}">${media({src:l.src||"",ratio:l.ratio,label:l.label},l.tone)}${l.tag?`<span class="tag hand">${esc(l.label)}</span>`:""}</button>`).join("")}</div>
+      <div class="reel2" role="group" aria-label="Field notes">${s.life.map((l,i)=>`<button type="button" data-i="${i}" aria-pressed="${i===0}" style="aspect-ratio:${esc(l.ratio||"4/5")}" aria-label="${esc(l.label.replace(/[{}]/g,""))} ${i+1}">${media({src:l.src||"",ratio:l.ratio,label:l.label},l.tone)}${l.tag?`<span class="tag hand">${esc(l.label)}</span>`:""}</button>`).join("")}</div>
     </div>
   </section>
 
@@ -606,7 +609,7 @@ H.addEventListener("click",e=>{
     reel.querySelectorAll("figure").forEach(f=>f.classList.toggle("on",f.dataset.i===i));
     reel.querySelectorAll("video").forEach(v=>{if(v.closest("figure").dataset.i!==i)v.pause()});
     const fig=reel.querySelector(`figure[data-i="${i}"]`);
-    requestAnimationFrame(()=>{reel.scrollTo({left:fig.offsetLeft-reel.offsetLeft,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+    requestAnimationFrame(()=>{reel.scrollTo({left:reel.scrollLeft+fig.getBoundingClientRect().left-reel.getBoundingClientRect().left,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
       const r=reel.getBoundingClientRect(); if(r.bottom>innerHeight||r.top<0) reel.scrollIntoView({block:"nearest",behavior:"smooth"})});
     return}
   if(e.target.id==="expandAll"){
