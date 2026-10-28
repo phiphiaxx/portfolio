@@ -195,6 +195,10 @@ footer .copy{appearance:none;background:none;border:0;border-bottom:1px solid va
 .reel2 button{position:relative}
 .reel2 .tag{position:absolute;left:50%;top:100%;transform:translateX(-50%);margin-top:4px;white-space:nowrap;font-size:20px;pointer-events:none}
 .reel2{padding-bottom:44px}
+.grp .reel figure{transition:opacity .25s}
+.grp .reel:has(figure.on) figure:not(.on):not(:hover){opacity:.55}
+.grp li button[aria-current="true"] .n{text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px}
+.grp .reel{position:relative;scroll-behavior:smooth}
 </style>
 
 </head>
@@ -483,11 +487,11 @@ function contents(){
 function archive(){
   let html = "";
   SITE.archive.forEach((g,gi)=>{
-    html += `<div class="grp" data-g="${gi}"><ol><li class="gh mute">${esc(g.group)}</li>${g.items.map((it,ii)=>`<li><button type="button" data-g="${gi}" aria-expanded="false"><span class="code">${g.code}${String(ii+1).padStart(3,"0")}</span><span class="n">${fmt(it.t)}</span><span class="mute">${esc(it.n||"")}${it.y?", "+esc(it.y):""}</span></button></li>`).join("")}</ol>
-      <div class="reel" hidden>${g.items.map(it=>{
+    html += `<div class="grp" data-g="${gi}"><ol><li class="gh mute">${esc(g.group)}</li>${g.items.map((it,ii)=>`<li><button type="button" data-g="${gi}" data-i="${ii}" aria-expanded="false"><span class="code">${g.code}${String(ii+1).padStart(3,"0")}</span><span class="n">${fmt(it.t)}</span><span class="mute">${esc(it.n||"")}${it.y?", "+esc(it.y):""}</span></button></li>`).join("")}</ol>
+      <div class="reel" hidden>${g.items.map((it,ii)=>{
         const m = it.v ? `<div class="m" style="aspect-ratio:${it.r||"16/9"};--t:${g.tone}"><video src="media/video/${esc(it.v)}.mp4" poster="media/video/${esc(it.v)}.jpg" controls playsinline preload="none" aria-label="${esc(it.t)}"></video></div>`
                        : media({src:"",ratio:it.r||"16/9",label:it.t},g.tone,{noLabel:true});
-        return `<figure>${m}<figcaption class="s">${fmt(it.t)}<br><span class="mute">${esc(it.n||"")}${it.y?", "+esc(it.y):""}</span></figcaption></figure>`;
+        return `<figure data-i="${ii}">${m}<figcaption class="s">${fmt(it.t)}<br><span class="mute">${esc(it.n||"")}${it.y?", "+esc(it.y):""}</span></figcaption></figure>`;
       }).join("")}</div></div>`;
   });
   return html;
@@ -592,7 +596,19 @@ setLife(0);
 H.addEventListener("click",e=>{
   const lb=e.target.closest(".reel2 button"); if(lb){setLife(lb.dataset.i);return}
   const ab=e.target.closest(".grp li button");
-  if(ab){const g=ab.closest(".grp"),reel=g.querySelector(".reel");reel.hidden=!reel.hidden;g.querySelectorAll("li button").forEach(b=>b.setAttribute("aria-expanded",!reel.hidden));return}
+  if(ab){
+    const g=ab.closest(".grp"),reel=g.querySelector(".reel"),i=ab.dataset.i;
+    if(!reel.hidden && ab.getAttribute("aria-current")==="true"){ // same item again: close
+      reel.hidden=true; g.querySelectorAll("li button").forEach(b=>{b.setAttribute("aria-expanded","false");b.removeAttribute("aria-current")});
+      reel.querySelectorAll("video").forEach(v=>v.pause()); return}
+    reel.hidden=false;
+    g.querySelectorAll("li button").forEach(b=>{b.setAttribute("aria-expanded","true");b.toggleAttribute("aria-current",b===ab);if(b===ab)b.setAttribute("aria-current","true")});
+    reel.querySelectorAll("figure").forEach(f=>f.classList.toggle("on",f.dataset.i===i));
+    reel.querySelectorAll("video").forEach(v=>{if(v.closest("figure").dataset.i!==i)v.pause()});
+    const fig=reel.querySelector(`figure[data-i="${i}"]`);
+    requestAnimationFrame(()=>{reel.scrollTo({left:fig.offsetLeft-reel.offsetLeft,behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth"});
+      const r=reel.getBoundingClientRect(); if(r.bottom>innerHeight||r.top<0) reel.scrollIntoView({block:"nearest",behavior:"smooth"})});
+    return}
   if(e.target.id==="expandAll"){
     const reels=[...document.querySelectorAll(".grp .reel")],open=reels.some(r=>r.hidden);
     reels.forEach(r=>r.hidden=!open); e.target.textContent=open?"Collapse all ▴":"Expand all ▾"; return}
